@@ -1,0 +1,8 @@
+#Temperatura Meteo Motta
+- platform: template
+  sensors:
+    temp_paese:  #cambiare nome a piacere
+      friendly_name: "Temp Paese"
+      value_template: "{{ states.weather.forecast_home.attributes.temperature }}"
+      unit_of_measurement: "°C"
+      icon_template: mdi:thermometer
