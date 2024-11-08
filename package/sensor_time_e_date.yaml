@@ -1,0 +1,100 @@
+homeassistant:
+  customize:
+    package.node_anchors:
+      customize: &customize
+        package: "Sensor Time & Date"
+        author: ""Simonz82"
+        reference: " "
+
+####################################################
+#                                                  #
+#                    SENSORI                       #
+#                                                  #
+####################################################
+
+sensor:
+  - platform: time_date
+    display_options:
+      - "time"
+      - "date"
+      - "date_time"
+      - "date_time_utc"
+      - "date_time_iso"
+      - "time_date"
+      - "time_utc"
+
+  ####################################################
+
+  - platform: template
+    sensors:
+      giorni_settimana:
+        friendly_name: "Giorni Settimana"
+        value_template: >-
+          {% if now().weekday() == 0 -%}
+          Lunedì
+          {%- elif now().weekday() == 1 -%}
+          Martedì
+          {%- elif now().weekday() == 2 -%}
+          Mercoledì
+          {%- elif now().weekday() == 3 -%}
+          Giovedì
+          {%- elif now().weekday() == 4 -%}
+          Venerdì
+          {%- elif now().weekday() == 5 -%}
+          Sabato
+          {%- elif now().weekday() == 6 -%}
+          Domenica
+          {%- endif %}
+
+  ####################################################
+
+  - platform: template
+    sensors:
+      data_italiana:
+        value_template: >
+          {%- set date = as_timestamp(now())-%}
+          {% set giorno = ["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"] %}
+          {% set mese = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"] %}
+          {% set m_ok = date | timestamp_custom("%m") | int %}
+          {% set g_ok = date | timestamp_custom("%w") | int %}
+          {{giorno[g_ok] + ' ' + date | timestamp_custom("%d") + ' ' + mese[m_ok - 1] + ' ' +date| timestamp_custom("%Y")}}
+
+  ####################################################
+
+  - platform: template
+    sensors:
+      data_ita_g_m_a:
+        value_template: >
+          {%- set date = as_timestamp(now())-%}
+          {% set mese = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"] %}
+          {% set m_ok = date | timestamp_custom("%m") | int %}
+          {{date | timestamp_custom("%d") + ' ' + mese[m_ok - 1] + ' ' +date| timestamp_custom("%Y")}}
+
+  ####################################################
+
+    - platform: template
+    sensors:
+      data_ita_gg_mmmm:
+        value_template: >
+          {%- set date = as_timestamp(now())-%}
+          {% set mese = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"] %}
+          {% set m_ok = date | timestamp_custom("%m") | int %}
+          {{date | timestamp_custom("%d") + ' ' + mese[m_ok - 1]}}
+
+  ####################################################
+
+  - platform: template
+    sensors:
+      mesi_italia:
+        value_template: >
+          {{ ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"][now().month-1] }}
+
+  ####################################################
+
+  - platform: template
+    sensors:
+      numero_settimana:
+        value_template: >
+          {{ now().strftime("%W") }}
+
+####################################################
