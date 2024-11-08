@@ -1,0 +1,59 @@
+elements:
+  - entity: sensor.time
+    style:
+      color: "#ffff00"
+      filter: opacity(100%)
+      font-family: Days One
+      font-size: 800%
+      left: 50%
+      top: 64%
+      text-shadow: 6px 6px 6px black
+      pointer-events: none
+      z-index: 0
+    type: state-label
+  - entity: sensor.giorni_settimana
+    style:
+      filter: opacity(70%)
+      font-family: Days One
+      font-size: 380%
+      left: 45%
+      pointer-events: none
+      text-shadow: 6px 6px 6px black
+      top: 24%
+      z-index: 1
+    type: state-label
+  - entity: sensor.data_ita_g_m_a
+    style:
+      color: "#white"
+      filter: opacity(90%)
+      font-family: Days One
+      font-size: 210%
+      left: 54%
+      top: 40%
+      text-shadow: 6px 6px 6px black
+      pointer-events: none
+      z-index: 2
+    type: state-label
+  - entity: sensor.temp_motta
+    style:
+      color: "#FFFFFF"
+      font-family: Days One
+      font-size: 14px
+      left: 88%
+      pointer-events: none
+      text-shadow: 0px 0px 40px black
+      top: 5%
+    type: state-label
+  - image: /local/orologio/thermo.png
+    style:
+      left: 96%
+      pointer-events: none
+      top: 5%
+      width: 6%
+    type: image
+image: /local/orologio/world1.png
+theme: ios-dark-mode
+type: picture-elements
+layout_options:
+  grid_columns: 4
+  grid_rows: 4
