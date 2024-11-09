@@ -1,47 +1,47 @@
 elements:
   - entity: sensor.time
     style:
-      color: "#ffff00"
+      color: "#ffff00" #colore dell'orologio
       filter: opacity(100%)
-      font-family: Days One
+      font-family: Days One #font da installare e settare qua
       font-size: 800%
       left: 50%
       top: 64%
-      text-shadow: 6px 6px 6px black
+      text-shadow: 6px 6px 6px black #personalizzi l'ombra del testo
       pointer-events: none
-      z-index: 0
+      z-index: 0 # serve portare in l'elemento orologio o data davanti o dietro nei livelli
     type: state-label
   - entity: sensor.giorni_settimana
     style:
       filter: opacity(70%)
-      font-family: Days One
+      font-family: Days One #font da installare e settare qua
       font-size: 380%
       left: 45%
       pointer-events: none
-      text-shadow: 6px 6px 6px black
+      text-shadow: 6px 6px 6px black #personalizzi l'ombra del testo
       top: 24%
-      z-index: 1
+      z-index: 1 # serve portare in l'elemento orologio o data davanti o dietro nei livelli
     type: state-label
   - entity: sensor.data_ita_g_m_a
     style:
       color: "#white"
       filter: opacity(90%)
-      font-family: Days One
+      font-family: Days One #font da installare e settare qua
       font-size: 210%
       left: 54%
       top: 40%
-      text-shadow: 6px 6px 6px black
+      text-shadow: 6px 6px 6px black #personalizzi l'ombra del testo
       pointer-events: none
-      z-index: 2
+      z-index: 2 # serve portare in l'elemento orologio o data davanti o dietro nei livelli
     type: state-label
   - entity: sensor.temp_motta
     style:
       color: "#FFFFFF"
-      font-family: Days One
+      font-family: Days One #font da installare e settare qua
       font-size: 14px
       left: 88%
       pointer-events: none
-      text-shadow: 0px 0px 40px black
+      text-shadow: 0px 0px 40px black #personalizzi l'ombra del testo
       top: 5%
     type: state-label
   - image: /local/orologio/thermo.png
@@ -51,8 +51,8 @@ elements:
       top: 5%
       width: 6%
     type: image
-image: /local/orologio/world1.png
-theme: ios-dark-mode
+image: /local/orologio/world1.png #sfondo che nel mio esempio ha il mondo a puntini
+theme: ios-dark-mode #scegliere uno dei temi che si sono scaricati in HA
 type: picture-elements
 layout_options:
   grid_columns: 4

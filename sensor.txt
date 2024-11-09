@@ -1,7 +1,7 @@
-#Temperatura Meteo Motta
+#Temperatura Meteo Paese
 - platform: template
   sensors:
-    temp_paese:  #cambiare nome a piacere
+    temp_paese:  #cambiare "paese" con un nome a piacere della vostra location
       friendly_name: "Temp Paese"
       value_template: "{{ states.weather.forecast_home.attributes.temperature }}"
       unit_of_measurement: "°C"
