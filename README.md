@@ -1,25 +1,17 @@
-<h2><span style="text-decoration: underline;"><strong>🌤⌚ Big Clock card for home assistant</strong></span></h2>
+<h2><span style="text-decoration: underline;"><strong>⌚ Big Clock card for home assistant</strong></span></h2>
 
 <p><img src="example/example1.jpg" alt="" /></p>
 
-<p><img src="example/example2.jpg" alt="" /></p>
+<p>Volevo condividere una card che ho creato con l'aiuto delle varie community per visualizzare data, ora e anche un piccolo termometro.</p>
 
-<p>Volevo condividere una scheda che ho creato con l'aiuto delle varie community per visualizzare data, ora e anche un piccolo termometro.</p>
+<p dir="auto">Istruzioni:</p>
 
-<p dir="auto">Instructions:</p>
-
-da Hacs, installare:
-1. button-card
-2. layout-card
-
-poi ...
 1. nella cartella packeges copiate il file sensor_time_e_date.yaml
-2. nella cartella www dovete andare ad incollare le immagini per gli sfondi: www\orologio\
-3. in HA create una card manuale e incollate il contenuto del file: big_clock_card.yaml
-4. Temperatura interna, modificare l'entità con la vostra alla riga 66 (io ho messo il sensore di temperatura del mio salone)
-5. Temperatura esterna, modificare l'entità con la vostra alla riga 69 e 75 se avete un altro servizio di meteo (io ho usato weather.forecast)
-6. per gli allineamenti e dimensioni dovete eventualmente modificare i parametri alle righe CARD, NAME, LABEL per i 3 blocchi: data, ora e meteo
-
+2. nel file sensor.yaml, copiate il contenuto del file sensor.txt modificato in base al nome del vostro paese e il sensore meteo che utilizzate
+3. nella cartella www dovete andare ad incollare le immagini per gli sfondi che vi sceglierete voi nel mio caso sono qua: www\orologio\
+4. in HA create una card manuale e incollate il contenuto del file: big_clock_card.txt
+5. nella card, sicuramente cambiate   - entity: sensor.temp_motta con quello che avete inserito nel file sensor, se volete invece modificare dimensioni, e spostamenti delle varie scritte (date, ora ecc.) modificate queste righe: font-size: 800%, left: 50%, top: 64% per ogni entità.
+6. il parametro font-family: dovete andare a personalizzarlo con un font a vostra scelta, io ho scelto questo: Days One, per abilitarlo seguire questa guida: https://www.youtube.com/watch?v=p6HAxsEGe9M
 
 <p>Enjoy!</p>
 
