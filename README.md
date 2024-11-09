@@ -13,6 +13,16 @@
 5. il parametro font-family: dovete andare a personalizzarlo con un font a vostra scelta, io ho scelto questo: Days One, per abilitarlo seguire questa guida: https://www.youtube.com/watch?v=p6HAxsEGe9M
 6. in HA create una card manuale e incollate il contenuto del file: big_clock_card.txt
 
+Risultato finale:
+
+<p><img src="example/example1.jpg" alt="" /></p>
+
+<p><img src="example/example2.jpg" alt="" /></p>
+
+<p><img src="example/example3.jpg" alt="" /></p>
+
+
+
 <p>Enjoy!</p>
 
 ----------------------------------------
