@@ -9,9 +9,9 @@
 1. nella cartella packeges copiate il file sensor_time_e_date.yaml
 2. nel file sensor.yaml, copiate il contenuto del file sensor.txt modificato in base al nome del vostro paese e il sensore meteo che utilizzate
 3. nella cartella www dovete andare ad incollare le immagini per gli sfondi che vi sceglierete voi nel mio caso sono qua: www\orologio\
-4. in HA create una card manuale e incollate il contenuto del file: big_clock_card.txt
-5. nella card, sicuramente cambiate   - entity: sensor.temp_motta con quello che avete inserito nel file sensor, se volete invece modificare dimensioni, e spostamenti delle varie scritte (date, ora ecc.) modificate queste righe: font-size: 800%, left: 50%, top: 64% per ogni entità.
-6. il parametro font-family: dovete andare a personalizzarlo con un font a vostra scelta, io ho scelto questo: Days One, per abilitarlo seguire questa guida: https://www.youtube.com/watch?v=p6HAxsEGe9M
+4. nella card, sicuramente cambiate   - entity: sensor.temp_motta con quello che avete inserito nel file sensor, se volete invece modificare dimensioni, e spostamenti delle varie scritte (date, ora ecc.) modificate queste righe: font-size: 800%, left: 50%, top: 64% per ogni entità.
+5. il parametro font-family: dovete andare a personalizzarlo con un font a vostra scelta, io ho scelto questo: Days One, per abilitarlo seguire questa guida: https://www.youtube.com/watch?v=p6HAxsEGe9M
+6. in HA create una card manuale e incollate il contenuto del file: big_clock_card.txt
 
 <p>Enjoy!</p>
 
