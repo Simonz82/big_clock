@@ -1,0 +1,112 @@
+elements:
+  - entity: sensor.time
+    style:
+      color: "#ffff00"
+      filter: opacity(100%)
+      font-family: Days One
+      font-size: 1700%
+      left: 50%
+      top: 54%
+      text-shadow: 6px 6px 6px black
+      pointer-events: none
+      z-index: 0
+    type: state-label
+    tap_action:
+      action: navigate
+      navigation_path: /dashboard-tablet
+  - entity: sensor.giorni_settimana
+    style:
+      filter: opacity(70%)
+      font-family: Days One
+      font-size: 720%
+      left: 40%
+      pointer-events: none
+      text-shadow: 6px 6px 6px black
+      top: 37%
+      z-index: 1
+    type: state-label
+    tap_action:
+      action: navigate
+      navigation_path: /dashboard-tablet
+  - entity: sensor.data_ita_g_m_a
+    style:
+      color: "#white"
+      filter: opacity(90%)
+      font-family: Days One
+      font-size: 540%
+      left: 50%
+      top: 43%
+      text-shadow: 6px 6px 6px black
+      pointer-events: none
+      z-index: 2
+    type: state-label
+    tap_action:
+      action: navigate
+      navigation_path: /dashboard-tablet
+  - entity: sensor.temp_motta
+    style:
+      color: "#FFFFFF"
+      font-family: Days One
+      font-size: 50px
+      left: 35%
+      pointer-events: none
+      text-shadow: 0px 0px 40px black
+      top: 28%
+    type: state-label
+  - image: /local/orologio/thermom.svg
+    type: image
+    tap_action:
+      action: navigate
+      navigation_path: /dashboard-tablet
+    style:
+      left: 95%
+      pointer-events: none
+      top: 65%
+      width: 18%
+  - type: custom:button-card
+    show_label: true
+    custom_fields:
+      icon: |
+        [[[
+          var weather = states['weather.forecast_home'].state;
+          return '<img src= "/local/weather_icons/' + weather + '.svg" width="280" height="280">'
+        ]]]
+    styles:
+      grid:
+        - grid-template-areas: "\"icon n\" \"icon l\""
+      card:
+        - height: 70px
+        - overflow: visible
+        - background: none
+        - border: none
+        - padding-right: 1px
+        - margin-bottom: 2100px
+        - margin-left: 90px
+      icon:
+        - justify-self: end
+        - align-self: end
+        - paddig-right: 8px
+        - margin-bottom: "-16px"
+  - type: custom:button-card
+    entity: sensor.salone_temperature
+    show_icon: null
+    show_name: false
+    show_state: true
+    show_units: false
+    styles:
+      card:
+        - font-size: 50px
+    style:
+      color: "#FFFFFF"
+      font-family: Days One
+      filter: opacity(95%)
+      font-size: 50px
+      left: 83%
+      pointer-events: none
+      text-shadow: 0px 0px 40px black
+      top: 65%
+image: /local/images/sfondo/nero.jpg
+theme: ios-dark-mode
+type: picture-elements
+grid_options:
+  columns: full

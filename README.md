@@ -23,6 +23,18 @@ Risultato finale:
 <p><img src="example/example3.jpg" alt="" /></p>
 
 
+Avendo un Tablet da 15.6" (questo in particolare: https://amzn.to/40ofjsl)
+ho utilizzato FULLY KIOSK BROWSER per abilitare lo screen saver con link a una della dashboard di HA, questa dashboard è stata disegnata così a tutto schermo:
+1. creare nuova dashboard, tipo di visualizzione: SEZIONI, Titolo: Orologio, Icona: mdi:clock-check-outline, URL: orologio, numero massimo di colonne 8, salvare
+2. copiare e incollare le cartelle con le immagini animate e sfondo nero: www/images, www/orologio, www/weather_icons
+3. in HA create una card manuale e incollate il contenuto del file: big_clock_card full screen.txt
+4. adattare le entità temperature alle vostre personali
+
+
+Risultato finale:
+
+<p><img src="example/example4.gif" alt="" /></p>
+
 
 <p>Enjoy!</p>
 
