@@ -12,6 +12,7 @@
 4. nella card, sicuramente cambiate   - entity: sensor.temp_motta con quello che avete inserito nel file sensor, se volete invece modificare dimensioni, e spostamenti delle varie scritte (date, ora ecc.) modificate queste righe: font-size: 800%, left: 50%, top: 64% per ogni entità.
 5. il parametro font-family: dovete andare a personalizzarlo con un font a vostra scelta, io ho scelto questo: Days One, per abilitarlo seguire questa guida: https://www.youtube.com/watch?v=p6HAxsEGe9M
 6. in HA create una card manuale e incollate il contenuto del file: big_clock_card.txt
+7. se non interessa la temperatura esterna, eliminare da riga 37 a riga 46
 
 Risultato finale:
 

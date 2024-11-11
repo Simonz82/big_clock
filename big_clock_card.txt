@@ -34,7 +34,7 @@ elements:
       pointer-events: none
       z-index: 2 # serve portare in l'elemento orologio o data davanti o dietro nei livelli
     type: state-label
-  - entity: sensor.temp_motta
+  - entity: sensor.temp_motta #temperatura esterna, se non interessa, eliminare da riga 37 a riga 46
     style:
       color: "#FFFFFF"
       font-family: Days One #font da installare e settare qua
