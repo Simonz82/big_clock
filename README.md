@@ -28,7 +28,8 @@ ho utilizzato FULLY KIOSK BROWSER per abilitare lo screen saver con link a una d
 1. creare nuova dashboard, tipo di visualizzione: SEZIONI, Titolo: Orologio, Icona: mdi:clock-check-outline, URL: orologio, numero massimo di colonne 8, salvare
 2. copiare e incollare le cartelle con le immagini animate e sfondo nero: www/images, www/orologio, www/weather_icons
 3. in HA create una card manuale e incollate il contenuto del file: big_clock_card full screen.txt
-4. adattare le entità temperature alle vostre personali
+4. riaprire la modifica della card, nella sezione LAYOUT andare a flagare: Scheda a tutta larghezza
+5. adattare le entità temperature alle vostre personali, e nel caso anche le misure dei vari oggetti in base alle dimensioni del vostro tablet
 
 
 Risultato finale:
