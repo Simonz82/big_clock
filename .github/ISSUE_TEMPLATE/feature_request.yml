@@ -1,0 +1,29 @@
+name: Feature request
+description: Suggest an idea or an improvement
+labels: [enhancement]
+body:
+  - type: dropdown
+    id: card
+    attributes:
+      label: Which version?
+      options:
+        - tablet-orologio-card (JS card)
+        - Classic version (YAML, button-card)
+        - Other / not sure
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What do you need?
+      description: Describe the use case, not only the solution.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+  - type: textarea
+    id: extra
+    attributes:
+      label: Mockups, screenshots, example YAML

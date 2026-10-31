@@ -1,0 +1,32 @@
+name: Release assets
+
+# Runs when a release is published (tag and release are created by hand/API).
+# It never creates a release: it only attaches the JS and fills empty notes.
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  assets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+      - name: Attach JS to the existing release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "${{ github.event.release.tag_name }}" tablet-orologio-card.js --clobber
+      - name: Generate notes if the release body is empty
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name }}
+          BODY: ${{ github.event.release.body }}
+        run: |
+          if [ -z "$(echo "$BODY" | tr -d '[:space:]')" ]; then
+            gh api "repos/${{ github.repository }}/releases/generate-notes" -f tag_name="$TAG" --jq .body > notes.md
+            gh release edit "$TAG" --notes-file notes.md
+          fi

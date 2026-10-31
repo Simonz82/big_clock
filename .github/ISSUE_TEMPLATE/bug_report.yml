@@ -1,0 +1,65 @@
+name: Bug report
+description: Something does not work as expected
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for the report. Please fill in all fields, it helps to reproduce the problem. For questions use Discussions.
+  - type: dropdown
+    id: card
+    attributes:
+      label: Which version?
+      options:
+        - tablet-orologio-card (JS card)
+        - Classic version (YAML, button-card)
+        - Other / not sure
+    validations:
+      required: true
+  - type: input
+    id: card_version
+    attributes:
+      label: Card version
+      description: Shown in HACS, or in the browser console banner.
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: input
+    id: ha_version
+    attributes:
+      label: Home Assistant version
+      placeholder: "2025.1.0"
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser / app
+      description: Browser and version, or the Home Assistant Companion app.
+      placeholder: "Chrome 130 / HA Companion Android"
+    validations:
+      required: true
+  - type: textarea
+    id: yaml
+    attributes:
+      label: Card YAML
+      description: Paste the card configuration. Remove tokens and private data.
+      render: yaml
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happens and what you expected
+    validations:
+      required: true
+  - type: textarea
+    id: console
+    attributes:
+      label: Browser console errors
+      description: Open the developer tools (F12), tab Console, and paste red errors.
+      render: text
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Drag and drop images here.

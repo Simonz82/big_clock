@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and help
+    url: https://github.com/Simonz82/big_clock/discussions/categories/q-a
+    about: Ask usage questions in Discussions (Q&A).
+  - name: Show your dashboard
+    url: https://github.com/Simonz82/big_clock/discussions/categories/show-and-tell
+    about: Share your dashboards in Discussions (Show and tell).
