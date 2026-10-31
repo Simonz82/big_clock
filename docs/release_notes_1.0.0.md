@@ -6,4 +6,5 @@ First release of the JS card, installable with HACS.
 - Big time scaled to the full width, weekday, date, weather icon, outdoor and indoor temperature, optional guest Wi-Fi QR.
 - Anti burn-in shifting and dimming.
 - Days One font from Google Fonts (disable with `google_font: false`).
+- Horizontal mode: dotted world map background (`background_horizontal`, optional file `assets/world-dots.svg`).
 - The original YAML version is kept in `classic/`.

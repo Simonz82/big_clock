@@ -20,6 +20,8 @@ const DEFAULTS = {
   shift_minutes: 4,   // ogni quanti minuti sposta
   google_font: true,  // carica 'Days One' da Google Fonts se non e' gia' presente (false = nessuna richiesta esterna)
   fullscreen: true,   // copre intestazione e barra laterale di HA
+  background_horizontal: '/local/tablet-orologio/world-dots.svg', // solo orientation horizontal: immagine di sfondo (mappa del mondo); 'none' = usa `background`
+  background_horizontal_opacity: 0.45,
   orientation: 'auto', // 'auto' (come prima: segue lo schermo) | 'vertical' | 'horizontal'
 };
 
@@ -39,6 +41,7 @@ const CSS = `
 .shift { position: absolute; inset: 0; display: grid; transition: transform 6s ease-in-out; will-change: transform;
   grid-template-rows: 1fr auto auto 1.5fr; grid-template-columns: 1fr 1fr; padding: 5cqh 6cqw 5cqh;
   grid-template-areas: "wx wx" "day day" "clock clock" "wifi room"; row-gap: 1cqh; }
+.bgh { position: absolute; inset: 0; pointer-events: none; background: center / cover no-repeat; }
 .dim { position: absolute; inset: 0; pointer-events: none; }
 .wx { grid-area: wx; display: flex; align-items: center; justify-content: center; gap: 4cqw; min-height: 0; }
 .wx img { height: min(28cqh, 56cqw); width: auto; aspect-ratio: 1; filter: drop-shadow(0 0 3cqmin rgba(0,0,0,.6)); }
@@ -73,7 +76,7 @@ const CSS = `
 .o-h .room { margin-top: 0; height: auto; justify-content: flex-end; align-self: center; gap: .6cqw; }
 .o-h .room .v { font-size: min(2.8cqw, 5.5cqh); } .o-h .room img { height: min(4cqw, 8cqh); }
 .o-h .clock { margin-top: 0; align-self: start; line-height: .85; }
-.o-h .wifi { position: absolute; right: 4cqw; bottom: 4cqh; margin-top: 0; }
+.o-h .wifi { position: absolute; right: 22cqw; top: 4cqh; margin-top: 0; }
 .o-h .wifi img { width: min(9cqw, 14cqh); }`;
 
 class TabletOrologioCard extends HTMLElement {
@@ -104,8 +107,10 @@ class TabletOrologioCard extends HTMLElement {
       l.id = 'tablet-orologio-days-one'; l.rel = 'stylesheet'; l.href = 'https://fonts.googleapis.com/css2?family=Days+One&display=swap';
       document.head.appendChild(l);
     }
+    const useMap = c.orientation === 'horizontal' && c.background_horizontal && c.background_horizontal !== 'none';
     this.shadowRoot.innerHTML = `<style>${CSS}</style>
-      <div class="root ${c.fullscreen ? 'fs' : ''} ${c.orientation === 'horizontal' ? 'o-h' : c.orientation === 'vertical' ? 'o-v' : 'o-auto'}" style="${c.background ? `background-image:url('${esc(c.background)}')` : 'background:#000'}">
+      <div class="root ${c.fullscreen ? 'fs' : ''} ${c.orientation === 'horizontal' ? 'o-h' : c.orientation === 'vertical' ? 'o-v' : 'o-auto'}" style="${c.background && !useMap ? `background-image:url('${esc(c.background)}')` : 'background:#000'}">
+        ${useMap ? `<div class="bgh" style="background-image:url('${esc(c.background_horizontal)}'); opacity:${Number(c.background_horizontal_opacity)}"></div>` : ''}
         <div class="shift">
           <div class="wx"><img id="wi" alt=""><div class="out" id="out"></div></div>
           <div class="day"><div class="wd" id="wd"></div><div class="dt" id="dt"></div></div>
