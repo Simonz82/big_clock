@@ -1,7 +1,7 @@
 // tablet-orologio-card: full-screen clock / screensaver card for wall tablets (Fully Kiosk), portrait or landscape.
 // Days One font, big yellow time, date, weather icon, indoor/outdoor temperature, optional guest Wi-Fi QR.
 // Sizes use container queries (cqw/cqh/cqmin). Option `orientation`: auto | vertical | horizontal.
-const VERSION = '1.0.0';
+const VERSION = '1.0.1';
 
 const DEFAULTS = {
   time: 'sensor.time',
@@ -22,6 +22,7 @@ const DEFAULTS = {
   fullscreen: true,   // copre intestazione e barra laterale di HA
   background_horizontal: '/local/tablet-orologio/world-dots.svg', // solo orientation horizontal: immagine di sfondo (mappa del mondo); 'none' = usa `background`
   background_horizontal_opacity: 0.45,
+  tap_to_exit: true,  // un tocco (o Esc) chiude il tutto schermo
   orientation: 'auto', // 'auto' (come prima: segue lo schermo) | 'vertical' | 'horizontal'
 };
 
@@ -38,6 +39,8 @@ const CSS = `
 .root { position: fixed; inset: 0; z-index: 9; background: #000 center / cover no-repeat; overflow: hidden;
   container-type: size; font-family: 'Days One', 'Segoe UI', sans-serif; color: #fff; }
 .root:not(.fs) { position: relative; inset: auto; width: 100%; height: 100vh; z-index: 0; }
+.root.pv { height: auto; aspect-ratio: 9 / 16; max-height: 70vh; margin: 0 auto; }
+.root.pv.o-h, .root.pv.land { aspect-ratio: 16 / 9; }
 .shift { position: absolute; inset: 0; display: grid; transition: transform 6s ease-in-out; will-change: transform;
   grid-template-rows: 1fr auto auto 1.5fr; grid-template-columns: 1fr 1fr; padding: 5cqh 6cqw 5cqh;
   grid-template-areas: "wx wx" "day day" "clock clock" "wifi room"; row-gap: 1cqh; }
@@ -85,18 +88,47 @@ class TabletOrologioCard extends HTMLElement {
     this._built = false;
   }
   getCardSize() { return 20; }
-  static getStubConfig() { return {}; }
+  getGridOptions() { return { columns: 12, rows: 'auto', min_columns: 3 }; }
+  static getStubConfig() { return { fullscreen: true }; }
+  set editMode(v) { this._edit = !!v; this._applyCtx(); }
+  get editMode() { return !!this._edit; }
+  set preview(v) { this._prev = !!v; this._applyCtx(); }
+  get preview() { return !!this._prev; }
+
+  // true se la card e' in anteprima / selettore / editor / modalita' modifica: li' non va mai a tutto schermo
+  _inline() {
+    if (this._edit || this._prev || this._fsOff) return true;
+    try {
+      if (this.hasAttribute('preview') || /[?&](edit|preview)=1\b/.test(location.search)) return true;
+      const bad = /^(HUI-CARD-PREVIEW|HUI-DIALOG-EDIT-CARD|HUI-CARD-PICKER|HUI-CARD-ELEMENT-EDITOR|HUI-DIALOG-CREATE-CARD|HA-DIALOG|HA-MD-DIALOG|HUI-DIALOG-.*|DIALOG-.*)$/;
+      let n = this;
+      for (let i = 0; n && i < 60; i++) {
+        if (n.tagName && bad.test(n.tagName)) { this._inDialog = true; return true; }
+        n = n.parentNode || n.host;
+      }
+    } catch (x) { /* nel dubbio resta com'e' */ }
+    return false;
+  }
+  _applyCtx() {
+    const r = this.shadowRoot && this.shadowRoot.querySelector('.root');
+    if (!r || !this._cfg) return;
+    const inl = this._inline();
+    r.classList.toggle('fs', !!this._cfg.fullscreen && !inl);
+    r.classList.toggle('pv', inl && !!(this._edit || this._prev || this._inDialog));
+  }
+  _exitFs() { this._fsOff = true; this._applyCtx(); this._fit = null; this._fitClock(); }
 
   connectedCallback() {
+    this._onKey = ev => { if (ev.key === 'Escape') this._exitFs(); };
+    window.addEventListener('keydown', this._onKey, true);
     this._tick = setInterval(() => this._update(), 1000);
     this._shiftT = setInterval(() => this._shift(), Math.max(1, this._cfg?.shift_minutes || 4) * 60000);
   }
-  disconnectedCallback() { clearInterval(this._tick); clearInterval(this._shiftT); }
+  disconnectedCallback() { window.removeEventListener('keydown', this._onKey, true); clearInterval(this._tick); clearInterval(this._shiftT); }
 
   set hass(h) {
     this._hass = h;
-    if (!this._built) this._build();
-    this._update();
+    try { if (!this._built) this._build(); this._update(); } catch (e) { console.warn('tablet-orologio-card', e); }
   }
 
   _build() {
@@ -109,7 +141,7 @@ class TabletOrologioCard extends HTMLElement {
     }
     const useMap = c.orientation === 'horizontal' && c.background_horizontal && c.background_horizontal !== 'none';
     this.shadowRoot.innerHTML = `<style>${CSS}</style>
-      <div class="root ${c.fullscreen ? 'fs' : ''} ${c.orientation === 'horizontal' ? 'o-h' : c.orientation === 'vertical' ? 'o-v' : 'o-auto'}" style="${c.background && !useMap ? `background-image:url('${esc(c.background)}')` : 'background:#000'}">
+      <div class="root ${c.fullscreen && !this._inline() ? 'fs' : ''} ${c.orientation === 'horizontal' ? 'o-h' : c.orientation === 'vertical' ? 'o-v' : 'o-auto'}" style="${c.background && !useMap ? `background-image:url('${esc(c.background)}')` : 'background:#000'}">
         ${useMap ? `<div class="bgh" style="background-image:url('${esc(c.background_horizontal)}'); opacity:${Number(c.background_horizontal_opacity)}"></div>` : ''}
         <div class="shift">
           <div class="wx"><img id="wi" alt=""><div class="out" id="out"></div></div>
@@ -124,6 +156,9 @@ class TabletOrologioCard extends HTMLElement {
     this._el = { wi: q('wi'), out: q('out'), wd: q('wd'), dt: q('dt'), clock: q('clock'), inn: q('in'), shift: this.shadowRoot.querySelector('.shift') };
     this._last = {};
     this._built = true;
+    const rt = this.shadowRoot.querySelector('.root');
+    rt.addEventListener('click', () => { if (c.tap_to_exit !== false && rt.classList.contains('fs')) this._exitFs(); });
+    this._applyCtx();
     this._fit = null;
     const refit = () => { this._fit = null; this._fitClock(); };
     try { new ResizeObserver(refit).observe(this.shadowRoot.querySelector('.root')); } catch (e) { /* senza ResizeObserver resta il ricalcolo periodico */ }
@@ -185,6 +220,7 @@ class TabletOrologioCard extends HTMLElement {
 
   _update() {
     if (!this._built || !this._hass) return;
+    this._applyCtx();
     const c = this._cfg, st = this._hass.states, now = new Date(), e = this._el;
     const ok = id => st[id] && !['unavailable', 'unknown'].includes(st[id].state);
     let tt = null; try { tt = new URLSearchParams(location.search).get('orologio_test'); } catch (x) { /* nessun parametro */ }

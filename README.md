@@ -125,6 +125,7 @@ orientation: horizontal   # giorno e data in alto a sinistra, temperature a dest
 | `shift_px` | number | `14` | Ampiezza dello spostamento anti burn-in |
 | `shift_minutes` | number | `4` | Ogni quanti minuti sposta |
 | `fullscreen` | boolean | `true` | Copre intestazione e barra laterale |
+| `tap_to_exit` | boolean | `true` | Un tocco (o il tasto Esc) chiude il tutto schermo. In anteprima, selettore, editor e modalità modifica la card non va mai a tutto schermo |
 | `google_font` | boolean | `true` | Carica Days One da Google Fonts se manca |
 
 Per provare la larghezza con un'ora qualsiasi aggiungi `?orologio_test=23:58` all'indirizzo della vista.
