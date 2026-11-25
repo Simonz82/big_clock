@@ -22,7 +22,7 @@ const DEFAULTS = {
   fullscreen: true,   // copre intestazione e barra laterale di HA
   background_horizontal: '/local/tablet-orologio/world-dots.svg', // solo orientation horizontal: immagine di sfondo (mappa del mondo); 'none' = usa `background`
   background_horizontal_opacity: 0.45,
-  tap_to_exit: true,  // un tocco (o Esc) chiude il tutto schermo
+  tap_to_exit: false, // true = anche un tocco chiude il tutto schermo (Esc lo chiude sempre)
   orientation: 'auto', // 'auto' (come prima: segue lo schermo) | 'vertical' | 'horizontal'
 };
 
@@ -157,7 +157,7 @@ class TabletOrologioCard extends HTMLElement {
     this._last = {};
     this._built = true;
     const rt = this.shadowRoot.querySelector('.root');
-    rt.addEventListener('click', () => { if (c.tap_to_exit !== false && rt.classList.contains('fs')) this._exitFs(); });
+    rt.addEventListener('click', () => { if (c.tap_to_exit === true && rt.classList.contains('fs')) this._exitFs(); });
     this._applyCtx();
     this._fit = null;
     const refit = () => { this._fit = null; this._fitClock(); };
