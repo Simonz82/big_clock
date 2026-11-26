@@ -31,7 +31,7 @@ Nelle immagini il QR di esempio apre questo repository.
 
 ## Installazione
 
-**HACS (repository personalizzato)**: clicca il pulsante qui sotto per aprire il repository direttamente in HACS, oppure fai a mano: HACS > menu a tre puntini > Repository personalizzati > `https://github.com/Simonz82/big_clock`, tipo *Dashboard*, poi scarica "Tablet Orologio".
+**HACS / Marketplace (repository personalizzato)**: da Home Assistant 2026.11 HACS e' il **Marketplace** integrato (Impostazioni > Marketplace). Clicca il pulsante qui sotto per aprire il repository direttamente, oppure fai a mano: HACS > menu a tre puntini > Repository personalizzati > `https://github.com/Simonz82/big_clock`, tipo *Dashboard*, poi scarica "Tablet Orologio".
 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Simonz82&repository=big_clock&category=plugin)
 
@@ -148,7 +148,7 @@ Vedi [CHANGELOG.md](CHANGELOG.md).
 
 **Tablet Orologio** is a full-screen clock card for wall tablets: big yellow time scaled to the full width, weekday and date, weather icon, outdoor and indoor temperature, optional guest Wi-Fi QR, anti burn-in shifting and dimming. Use `orientation: vertical`, `horizontal` or `auto` (default).
 
-- **Install**: click the My Home Assistant button at the top of this page to open the repository in HACS, or manually HACS > Custom repositories > `https://github.com/Simonz82/big_clock` (type *Dashboard*), or copy `tablet-orologio-card.js` to `/config/www/` and add `/local/tablet-orologio-card.js` as a JavaScript module.
+- **Install**: click the My Home Assistant button at the top of this page to open the repository in HACS (from Home Assistant 2026.11 HACS is the built-in **Marketplace**, Settings > Marketplace), or manually HACS > Custom repositories > `https://github.com/Simonz82/big_clock` (type *Dashboard*), or copy `tablet-orologio-card.js` to `/config/www/` and add `/local/tablet-orologio-card.js` as a JavaScript module.
 - **Font**: Days One (SIL OFL 1.1), loaded from Google Fonts unless `google_font: false`.
 - **Weather icons**: SVGs named after the weather state, see `classic/www/weather_icons/`.
 - **Background**: in horizontal mode a dotted world map (`background_horizontal`, default `/local/tablet-orologio/world-dots.svg`, copy `assets/world-dots.svg` there; `none` to disable). **QR**: put any QR image in `wifi_image` (guest Wi-Fi `WIFI:T:WPA;S:name;P:password;;`, a link, a contact).
